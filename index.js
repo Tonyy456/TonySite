@@ -3,6 +3,7 @@
  */
 function populateFullDatabase(){
   const projectList = document.getElementById("project-list");
+  console.log("Made it here");
   projectData.forEach((project) => {
     populateProject(projectList, project)
   });
