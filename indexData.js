@@ -1,25 +1,9 @@
-
 // projectData.js
 const projectData = [
   {
-   //project 1
-    title: "Project 1",
-    description: "This is a description of project 1",
-    media: [
-      {
-        type: "youtube",
-        src: "https://www.youtube.com/embed/32VRtKo_7BE"
-      }
-    ]
-  },
-  {
-    title: "Project 2",
-    description: "This is a description of project 2",
-    media: [
-      {
-        type: "youtube",
-        src: "https://www.youtube.com/embed/32VRtKo_7BE"
-      }
-    ]
+    title: "3D viewing",
+    description: "3D planet generation made with exclusively javascript and WebGL. You can change the generation settings and see updates in real time!",
+    image: "images/planet_gen.png",
+    page: "projects/planet_gen/index.html",
   }
 ];

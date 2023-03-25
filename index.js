@@ -1,8 +1,11 @@
 /*
  * Function that adds all the projects into the page
  */
+
+
 function populateFullDatabase(){
   const projectList = document.getElementById("project-list");
+  projectList.classList.add("project-container");
   console.log("Made it here");
   projectData.forEach((project) => {
     populateProject(projectList, project)
@@ -14,21 +17,26 @@ function populateFullDatabase(){
  */
 function populateProject(parent, project){
   const projectDiv = document.createElement("div");
-  projectDiv.classList.add("centered-div");
+  projectDiv.classList.add("project-unit");
 
   const title = document.createElement("h2");
   title.textContent = project.title;
-  title.classList.add("centered-div");
+  title.classList.add("project-header");
   projectDiv.appendChild(title);
 
   const description = document.createElement("p");
   description.textContent = project.description;
-  description.classList.add("centered-div");
+  description.classList.add("project-p");
   projectDiv.appendChild(description);
 
-  project.media.forEach((media) => {
-    populateMedia(projectDiv, media);
-  });
+  const link = document.createElement("a");
+  link.href = project.page;
+  projectDiv.appendChild(link);
+
+  const img = document.createElement("img");
+  img.src = project.image;
+  img.classList.add("project-image");
+  link.appendChild(img);
 
   parent.appendChild(projectDiv);
 }
@@ -50,14 +58,6 @@ function addVideo(project, media){
     mediaElement.frameborder="0";
     mediaElement.allowfullscreen = true;
     mediaElement.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    project.appendChild(mediaElement);
-}
-
-function addPicture(project, media){
-    const mediaElement = document.createElement("img");
-    mediaElement.classList.add("centered-div");
-    mediaElement.width = 600;
-    mediaElement.height = 600;
     project.appendChild(mediaElement);
 }
 
