@@ -31,6 +31,7 @@ function populateProject(parent, project){
 
   const link = document.createElement("a");
   link.href = project.page;
+  link.classList.add("project-a");
   projectDiv.appendChild(link);
 
   const img = document.createElement("img");
