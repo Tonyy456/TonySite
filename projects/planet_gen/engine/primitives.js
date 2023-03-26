@@ -19,7 +19,7 @@ function initPrimitives()
         6, 
         8, 2);
     initSphere("sphere10", 10, 10);
-    initSphere("sphere50", 100, 100);
+    initSphere("sphere50", 200, 200);
 }
 function initPlane(width, height, sep)
 {

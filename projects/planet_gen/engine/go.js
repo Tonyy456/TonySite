@@ -59,7 +59,8 @@ class Camera extends GameObject
         this.near = 0.1;
         this.far = 1000;
         this.fovy = 60;
-        this.aspect = aspect;
+        this.aspect = gl.aspect;
+        gl.camera = this;
         this._calculate();
     }
     lookAt(coi, local = true)
@@ -93,7 +94,7 @@ class Camera extends GameObject
         let t = this.transform;
         let pos = t.position;
         let coi = vec3.add(pos, t.forward);
-        this.proj = mat4.projection(this.near, this.far, this.fovy, this.aspect);
+        this.proj = mat4.projection(this.near, this.far, this.fovy, gl.aspect);
         this.view = mat4.view(pos, t.up, coi, 0);
     }
     getProjection()

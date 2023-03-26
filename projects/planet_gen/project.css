@@ -3,6 +3,50 @@ body
     background-color: #363d4a;
 }
 
-.ie{
+h1
+{
+    color: white;
+    text-align: center;
+}
+
+.centeritem
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glcanvas
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    height: 750px;
+}
+
+.glbutton
+{
+    margin-bottom: 20px;
+}
+
+.ie
+{
     display: inline-block;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    margin: 10px 10px;
+    -webkit-appearance: none;
+}
+
+p.ie
+{
+    font-size: 1em;
+    color: white;
+}
+
+input.ie{
+    width: 50%;
+    background: white;
 }
