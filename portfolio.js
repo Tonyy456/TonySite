@@ -6,50 +6,71 @@
 function populateFullDatabase(){
   const projectList = document.getElementById("project-list");
   projectList.classList.add("project-container");
-  console.log("Made it here");
   projectData.forEach((project) => {
-    populateProject(projectList, project)
+    makeProject(projectList, project)
   });
 }
 
-/*
- * Add a single project to div parent.
- */
-function populateProject(parent, project){
+function makeProject(parent, project)
+{
   const projectDiv = document.createElement("div");
-  projectDiv.classList.add("project-unit");
+  projectDiv.classList.add("project");
+  parent.appendChild(projectDiv);
 
+  addText(projectDiv, project);
+  addImage(projectDiv, project);
+}
+
+function addText(parent, project)
+{
   const title = document.createElement("h2");
   title.textContent = project.title;
-  title.classList.add("project-header");
-  projectDiv.appendChild(title);
+  title.classList.add("header");
+  parent.appendChild(title);
 
   const description = document.createElement("p");
   description.textContent = project.description;
-  description.classList.add("project-p");
-  projectDiv.appendChild(description);
+  description.classList.add("p");
+  parent.appendChild(description);
+}
 
-  const link = document.createElement("a");
-  link.href = project.page;
-  link.classList.add("project-a");
-  projectDiv.appendChild(link);
+function addImage(parent, project)
+{
+  const wrap = document.createElement("div");
+  wrap.classList.add("img__wrap")
 
   const img = document.createElement("img");
   img.src = project.image;
-  img.classList.add("project-image");
+  img.classList.add("image");
+
+  const link = document.createElement("a");
+  link.classList.add("a");
+
+  parent.appendChild(wrap);
+  wrap.appendChild(link);
   link.appendChild(img);
 
-  parent.appendChild(projectDiv);
+  if(project.page !== "")
+  { // if link then, div > div > div > text;
+    link.href = project.page;
+    img.classList.add("image-link");
+
+    const desc = document.createElement("div");
+    link.appendChild(desc);
+    desc.classList.add("img__description");
+
+    const text = document.createElement("p");
+    desc.appendChild(text);
+    text.innerHTML = project.page;
+  }
+  else 
+  {
+    img.classList.add("image-nolink");
+  }
 }
 
-function populateMedia(project, media){
-  if (media.type === "picture"){
-    addPicture(project, media)
-  } else if (media.type === "youtube"){
-    addVideo(project, media)
-  } else { } 
-}
 
+/*
 function addVideo(project, media){
     const mediaElement = document.createElement("iframe");
     mediaElement.classList.add("centered-div");
@@ -69,3 +90,4 @@ function setCookies(){
     document.cookie = cookie + "; SameSite=None; Secure";
   }
 }
+*/
