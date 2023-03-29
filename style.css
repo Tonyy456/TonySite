@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body
+{
+    background-attachment: fixed;
+    background-position: center;
+}
+
+a
+{
+  text-decoration: none;
+  color: inherit;
+}
+
+img
+{
+    width: 30%;
+}
+
+.page-container
+{
+    width: 100%;
+    background: white;
+}
+
+.page-header
+{
+    width: 100%;
+    position: fixed;
+    background: white;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    height: 7vh;
+    padding-bottom: 2vh;
+    border-bottom: 4px solid gray;
+}
+
+.page-header h1
+{
+    padding-left: 2vw;
+    padding-right: 20vw;
+}
+
+.page-header h2
+{
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+
+
+
+
+
+
+
+
+/* ====================
+ * ===== PARALLAX =====
+ * ==================== */
+.parallax-container {
+    height: 61vw;
+    height: calc(30vw + 40vh);
+    height: 54.48275862vw;
+    width: 100%;
+}
+.parallax {
+    background: url(images/points.png);
+    width: 100%;
+    height: 100%;
+    color: white;
+    position: fixed;
+    z-index: -1;
+    padding-top: 10vh;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: 9vh;
+}
+
+.parallax img
+{
+    width: 100%;
+}
+@media only screen and (max-device-width: 1366px) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}

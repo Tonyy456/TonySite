@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--========== PAGE HEADER =========-->
+    <div class="page-header">
+        <h1> Tony Page </h1>
+        <h2> Portfolio </h1>
+        <h2> Blog </h1>
+    </div>
+
+    <div class="parallax-container">
+        <div class="parallax">
+            <image>
+            <img src="images/points.png" />
+            <h1> Parallax ? </h1>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div id="dropdown-container" class="dropdown-group"> </div>
+        <div id="project-list"> </div>
+        <div class="footer"></div>
+    </div>
+
+    <!-- Scripts to finialize logic -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        console.log("Populating projects!");
+        initialize();
+    </script>
+</body>
+</html>

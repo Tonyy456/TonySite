@@ -6,8 +6,6 @@ function _init_gl(canvas) {
         gl.fixCanvasWidth = function ()
         {
             console.log("setting canvas width");
-            if(gl.camera)
-                gl.camera._calculate();
             let style = document.querySelector('.glcanvas');
             let test = getComputedStyle(style);
             canvas.width = parseInt(test.width, 10);
@@ -15,6 +13,8 @@ function _init_gl(canvas) {
             gl.viewportWidth = canvas.width;   // the width of the canvas
             gl.viewportHeight = canvas.height; // the height 
             gl.aspect = canvas.width / canvas.height;
+            if(gl.camera)
+                gl.camera._calculate();
         }
         gl.fixCanvasWidth();
         window.addEventListener('resize', gl.fixCanvasWidth);
