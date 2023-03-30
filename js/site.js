@@ -1,47 +1,78 @@
-let currentSortFunc = null;
-let sortValue = null;
-let filterValue = null;
-let current = 0;
+let site = {};
+
+//===============================================
+//============== PARALLAX FUN ===================
+//===============================================
+/* 
+SOURCE: https://www.firewatchgame.com/
+*/
+
+function updateParallax(event)
+{
+    var top = this.scrollY;
+    var layers = document.getElementsByClassName("parallax");
+    var layer, speed, yPos;
+    for (var i = 0; i < layers.length; i++) {
+        layer = layers[i];
+        speed = layer.getAttribute('data-speed');
+        var yPos = -(top * speed / 100);
+        layer.setAttribute('style', 'transform: translate3d(0px, ' + yPos + 'px, 0px)');
+    }
+}
+function castParallax() {
+	var opThresh = 350;
+	var opFactor = 750;
+	window.addEventListener("scroll", updateParallax);
+}
+
+function dispelParallax() {
+	$("#nonparallax").css('display','block');
+	$("#parallax").css('display','none');
+}
+
+
+
+
+
+
 //===============================================
 //======== HELPER FUNCTIONS TO CALL =============
 //===============================================
-function setSortFunc()
-{ 
-    switch(sortValue) {
-        case 'Reversed':
-            currentSortFunc = function(){ return -1; };
-            break;
-        case 'WIP':
-            currentSortFunc = function(){ return 1; };
-            break;
-        case 'Complete':
-            currentSortFunc = function(){ return 1; };
-            break;
-        default:
-            currentSortFunc = null;
-            break; }
+site.filterValue = null;
+site.current = 0;
+site.sortValue = null;
+site.sortFunctions = {};
+site.sortFunctions["None"] = function()
+{
+    return 1;
+}
+site.sortFunctions["Reversed"] = function()
+{
+    return -1;
+}
+site.sortFunctions["WIP"] = function()
+{
+    return 1;
+}
+site.sortFunctions["Complete"] = function()
+{
+    return 1;
 }
 
 function sort(a)
 {
-    sortValue = a;
-    setSortFunc();
+    site.sortValue = a;
     run();
 }
 
 function filter(a)
 {
-    filterValue = a;
+    console.log("working")
+    site.filterValue = a;
     run();
 }
 
-function initialize()
-{
-    initDropDown();
-    run();
-}
-
-function initDropDown()
+function initDropDownMenus()
 {
     var filterOp = options.filter;
     var sortOp = options.sort;
@@ -49,25 +80,29 @@ function initDropDown()
     if(!container) return;
 
     var dd_cc1 = document.createElement("div");
-    container.appendChild(dd_cc1);
     var dd_cc2 = document.createElement("div");
-    container.appendChild(dd_cc2);
     var dd_h1 = document.createElement("h1");
-    dd_cc1.appendChild(dd_h1);
-    dd_h1.innerHTML = "filter";
     var dd_h2 = document.createElement("h1");
-    dd_cc2.appendChild(dd_h2);
-    dd_h2.innerHTML = "sort";
     var filterDD = document.createElement("select");
-    dd_cc1.appendChild(filterDD);
     var sortDD = document.createElement("select");
+
+    container.appendChild(dd_cc1);
+    container.appendChild(dd_cc2);
+    dd_cc1.appendChild(dd_h1);
+    dd_cc2.appendChild(dd_h2);
+    dd_cc1.appendChild(filterDD);
     dd_cc2.appendChild(sortDD);
 
+    dd_h1.innerHTML = "filter";
+    dd_h2.innerHTML = "sort";
     dd_cc1.classList.add("dropdown-container");
     dd_cc2.classList.add("dropdown-container");
-
-    filterDD.onchange = "filter(this.value)";
-    sortDD.onchange = "sort(this.value)";
+    filterDD.addEventListener('change', function(){
+        filter(this.value);
+    }, false)
+    sortDD.addEventListener('change', function(){
+        sort(this.value);
+    }, false)
 
     for(let i = 0; i < filterOp.length; i++)
     {
@@ -82,54 +117,24 @@ function initDropDown()
         sortDD.appendChild(op);
         op.innerHTML = sortOp[i];
     }
-    sortValue = sortDD.value; 
-    setSortFunc();
-    filterValue = filterDD.value;
+
+    site.sortValue = sortDD.value; 
+    site.filterValue = filterDD.value;
 }
-/*
- *
- *
-const options = 
-{
-    filter: ["C#", "Javascript", "WebGL", "GLSL"],
-    sort: ["None", "Reversed", "WIP", "Complete"], 
-}
- *     
- *     <div id="dropdown-container" class="dropdown-group">
-        <div class="dropdown-container">
-            <h1> Filter: </h1>
-            <select id="filter" class="filter" onchange="filter(this.value)"> 
-                <option> None </option>
-                <option> C# </option>
-                <option> Javascript </option>
-                <option> Unity </option>
-            </select>
-        </div>
-        <div class="dropdown-container">
-            <h1> Sort: </h1>
-            <select id="sort" class="filter" onchange="sort(this.value)"> 
-                <option> None </option>
-                <option> Reversed </option>
-                <option> WIP </option>
-                <option> Complete </option>
-            </select>
-        </div>
-    </div>
- *
- */
+
 //===============================================
 //========POPULATE DATABASE FUNCTION=============
 //===============================================
 function run()
 {
-    populateFullDatabase(currentSortFunc, 
+    populateFullDatabase(site.sortFunctions[site.sortValue], 
         function(element, index) 
         {
-            if (filterValue == 'None')
+            if (site.filterValue == 'None')
             {
                 return true;
             }
-            let ele = element.tags.includes(filterValue);
+            let ele = element.tags.includes(site.filterValue);
             return ele;
         });
 }
@@ -156,7 +161,7 @@ function populateFullDatabase(sort, filter){
 function makeProject(parent, project)
 {
     const projectDiv = document.createElement("div");
-    projectDiv.id = "id" + current++;
+    projectDiv.id = "id" + site.current++;
     projectDiv.classList.add("project");
     parent.appendChild(projectDiv);
 
@@ -179,32 +184,29 @@ function addText(parent, project)
 function addImageTest(parent, project)
 {
     const container = document.createElement("div");
-    parent.appendChild(container);
-    container.classList.add("img_container");
-
     const image = document.createElement("img");
-    container.appendChild(image);
-    image.src = project.image;
-
     const popup = document.createElement("div");
-    container.appendChild(popup);
-    popup.classList.add("img_popup");
     const link = document.createElement("a");
+    const title = document.createElement("h1");
+    const description = document.createElement("p");
+    const tagContainer = document.createElement("div");
+    
+    parent.appendChild(container);
+    container.appendChild(image);
+    container.appendChild(popup);
+    popup.appendChild(link);
+    link.appendChild(title);
+    link.appendChild(description);
+    link.appendChild(tagContainer);
+    
+    tagContainer.classList.add("tag_container");
+    container.classList.add("img_container");
+    image.src = project.image;
+    popup.classList.add("img_popup");
     link.target="_blank";
     link.rel="noopener noreferrer";
-    popup.appendChild(link);
-
-    const title = document.createElement("h1");
-    link.appendChild(title);
     title.textContent = project.title;
-
-    const description = document.createElement("p");
-    link.appendChild(description);
     description.innerHTML = project.description;
-
-    const tagContainer = document.createElement("div");
-    tagContainer.classList.add("tag_container");
-    link.appendChild(tagContainer);
 
     for(let i = 0; i < project.tags.length; i++)
     {
@@ -218,3 +220,21 @@ function addImageTest(parent, project)
         link.href = project.page;
     } 
 }
+
+function startSite() {
+
+    initDropDownMenus();
+    run();
+
+	var platform = navigator.platform.toLowerCase();
+	var userAgent = navigator.userAgent.toLowerCase();
+	if ( platform.indexOf('ipad') != -1  ||  platform.indexOf('iphone') != -1 ) 
+	{
+		dispelParallax();
+        return;
+	}
+	updateParallax();
+    castParallax();
+}
+
+document.body.onload = startSite();
