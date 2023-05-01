@@ -8,42 +8,49 @@ import pb7 from '/parallax_bg_7.png'
 import pb8 from '/parallax_bg_8.png'
 import pb9 from '/parallax_bg_9.png'
 
-interface Props {
-    imageUrls: string[];
-  }
-
-const Parallax: React.FC<Props> = ({ imageUrls } : Props) : JSX.Element  => 
-{
-  const url_count = imageUrls.length;
-
-  var classes: Array<string> = [];
-  for(let i = 0; i < url_count; i++)
-  {
-    classes.push(`parallax__layer__${i}`)
-  }
-
-  const renderGalleryItems = () : JSX.Element[] => {
-    return imageUrls.map((url, index) => (
-      <div className={classes[index] + ' parallax__layer'} key={index}>
-        <img src={url} />
-      </div>
-    ));
-  }
-
-  return (
-    <>
-    {renderGalleryItems()}
-    </>
-  )
-
+interface ParallaxLayerProps {
+  src: string;
+  depth: number;
 }
 
-const urls : string[] = [pb1,pb2,pb3,pb4,pb5,pb6,pb7,pb8,pb9];
+const ParallaxLayer: React.FC<ParallaxLayerProps> = ({ src, depth }) => {
+  const scale = ((1 + (depth - 1) * 1) * 100);
+  const vwWidth = `calc(${scale}vw)`;
+  const translation = -100 * (depth - 1);
+  console.log(scale, depth);
+  return (
+    <div className={`parallax_layer`}>
+      <img src={src} style={{ transform: `translateZ(${translation}px) scale(1)`, width: vwWidth }} />
+    </div>
+  );
+};
+
+const Parallax: React.FC = () => {
+  const parallaxLayers = [
+    { src: pb1, depth: 9 },
+    { src: pb2, depth: 8 },
+    { src: pb3, depth: 7 },
+    { src: pb4, depth: 6 },
+    { src: pb5, depth: 5 },
+    { src: pb6, depth: 4 },
+    { src: pb7, depth: 3 },
+    { src: pb8, depth: 2 },
+    { src: pb9, depth: 1 }
+  ];
+
+  return (
+    <div className="parallax">
+      {parallaxLayers.map(({ src, depth }) => (
+        <ParallaxLayer key={src} src={src} depth={depth} />
+      ))}
+    </div>
+  );
+};
 
 function GetParallaxDiv()
 {
     return (
-        <Parallax imageUrls={urls} />
+        <Parallax />
       )
 }
 
