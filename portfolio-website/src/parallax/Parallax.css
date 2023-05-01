@@ -1,0 +1,65 @@
+*{
+  box-sizing: border-box;
+}
+
+.div
+{
+  display: block;
+}
+
+.parallax {
+  perspective: 100px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-left: -1164px;
+}
+
+.parallax__layer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+}
+
+.parallax__layer .img 
+{
+  display: block;
+  position: absolute;
+  bottom: 0;
+}
+
+.parallax__layer__0 {
+  transform: translate3d(0px,0px,-400px) scale(5.5);
+}
+.parallax__layer__1 {
+  transform: translate3d(0px,-1000px,-350px) scale(5);
+}
+.parallax__layer__2 {
+  transform: translate3d(0px,300px,-300px) scale(4.5);
+}
+.parallax__layer__3 {
+  transform: translate3d(0px,100px,-250px) scale(4);
+}
+.parallax__layer__4 {
+  transform: translate3d(0px,-700px,-200px) scale(3.5);
+}
+.parallax__layer__5 {
+  transform: translate3d(0px,-300px,-150px) scale(2.5);
+}
+.parallax__layer__6 {
+  transform: translate3d(0px,0px,-100px) scale(2);
+}
+.parallax__layer__7 {
+  transform: translate3d(0px,350px,-50px) scale(1.5);
+}
+.parallax__layer__8 {
+  transform: translate3d(0px,300px,0px) scale(1);
+}
