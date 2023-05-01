@@ -24,13 +24,16 @@
   transform-style: preserve-3d;
   }
 
-  .parallax_layer img {
+  .parallax_layer_container
+  {
+    color: white;
+    transform-style: preserve-3d;
+  }
+
+  .parallax_layer_container img {
     display: block;
     position: absolute;
     margin: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 
     .parallax__layer__0 {

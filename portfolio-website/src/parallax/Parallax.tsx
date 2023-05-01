@@ -11,37 +11,42 @@ import pb9 from '/parallax_bg_9.png'
 interface ParallaxLayerProps {
   src: string;
   depth: number;
+  trans: number[];
 }
 
-const ParallaxLayer: React.FC<ParallaxLayerProps> = ({ src, depth }) => {
+const ParallaxLayer: React.FC<ParallaxLayerProps> = ({ src, depth, trans }) => {
   const scale = ((1 + (depth - 1) * 1) * 100);
   const vwWidth = `calc(${scale}vw)`;
-  const translation = -100 * (depth - 1);
-  console.log(scale, depth);
+  const translationX = -50 * (depth - 1) + trans[0];
+  const translationY = -45 * (depth - 1) + trans[1];
+  const translationZ = -100 * (depth - 1) + trans[2];
+  const translation = `translate3d(${translationX}vw, ${translationY}vh, ${translationZ}px)`
   return (
     <div className={`parallax_layer`}>
-      <img src={src} style={{ transform: `translateZ(${translation}px) scale(1)`, width: vwWidth }} />
+      <div className={`parallax_layer_container`} >
+        <img src={src} style={{ transform: translation, width: vwWidth }}/>
+      </div>
     </div>
   );
 };
 
 const Parallax: React.FC = () => {
   const parallaxLayers = [
-    { src: pb1, depth: 9 },
-    { src: pb2, depth: 8 },
-    { src: pb3, depth: 7 },
-    { src: pb4, depth: 6 },
-    { src: pb5, depth: 5 },
-    { src: pb6, depth: 4 },
-    { src: pb7, depth: 3 },
-    { src: pb8, depth: 2 },
-    { src: pb9, depth: 1 }
+    { src: pb1, depth: 9, trans: [0,-50,0]},
+    { src: pb2, depth: 8, trans: [0,-25,0] },
+    { src: pb3, depth: 7, trans: [0,100,0] },
+    { src: pb4, depth: 6, trans: [0,100,0] },
+    { src: pb5, depth: 5, trans: [0,100,0] },
+    { src: pb6, depth: 4, trans: [0,100,0] },
+    { src: pb7, depth: 3, trans: [0,100,0] },
+    { src: pb8, depth: 2, trans: [0,100,0] },
+    { src: pb9, depth: 1, trans: [0,100,0] }
   ];
 
   return (
     <div className="parallax">
-      {parallaxLayers.map(({ src, depth }) => (
-        <ParallaxLayer key={src} src={src} depth={depth} />
+      {parallaxLayers.map(({ src, depth, trans }) => (
+        <ParallaxLayer key={src} src={src} depth={depth} trans={trans}/>
       ))}
     </div>
   );
