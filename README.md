@@ -1,4 +1,4 @@
 # tonyy456.github.io
 
-* [Example style]("https://hugo.fyi/#")
-* https://hugo.fyi/#
+* [13 porfolios](https://alvarotrigo.com/blog/game-design-portfolios/)
+* [Example style](https://hugo.fyi/#)
