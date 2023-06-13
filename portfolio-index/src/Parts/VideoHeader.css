@@ -1,0 +1,25 @@
+.videoElementParent
+{
+    position: relative; 
+    z-index: -1; 
+    inset: 0px; 
+    overflow: hidden; 
+    background-size: cover; 
+    background-color: transparent; 
+    background-repeat: no-repeat; 
+    background-position: 50% 50%; 
+    background-image: none;
+}
+
+.videoElement
+{
+    margin: auto; 
+    position: relative; 
+    z-index: -1; 
+    top: 0%; 
+    left: 0%; 
+    visibility: visible; 
+    opacity: 1; 
+    width: 100vw; 
+    height: auto;
+}

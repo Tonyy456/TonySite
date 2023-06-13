@@ -1,15 +1,17 @@
 import './App.css'
-import { GetVideoHeader, videoID } from "./VideoHeader/VideoHeader"
+import { VideoHeader, videoID } from "./Parts/VideoHeader"
+import AboutMeDiv from './Parts/AboutMe';
 
 function App() {
-  var video_parent : JSX.Element = GetVideoHeader();
   return (
     <>
-      {video_parent}
+      <VideoHeader />
+      <AboutMeDiv />
     </>
   );
 }
 
+// Play video element on start.
 var video_element = document.getElementById(videoID) as HTMLVideoElement;
 if(video_element != null) video_element.play();
 
