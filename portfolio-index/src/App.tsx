@@ -1,23 +1,15 @@
 import './App.css'
-import { VideoHeader, videoID } from "./Components/VideoHeader"
-import AboutMeDiv from './Components/AboutMe';
-import Header from './Components/Header';
-import { HeaderTab } from './Components/Header';
-
+import MyHeader from './components/header/Header'
 function App() {
   return (
-    <>
-      <Header items={[
-        new HeaderTab("MainPage", window.location.href)
-        ]}/>
-      <VideoHeader />
-      <AboutMeDiv />
-    </>
-  );
+    <div className='w-screen h-screen bg-gray'>
+      <MyHeader />
+    </div>
+  )
 }
 
 // Play video element on start.
-var video_element = document.getElementById(videoID) as HTMLVideoElement;
-if(video_element != null) video_element.play();
+// var video_element = document.getElementById(videoID) as HTMLVideoElement;
+// if(video_element != null) video_element.play();
 
 export default App

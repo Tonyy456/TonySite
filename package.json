@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "fs-extra": "^11.1.1",
     "vite-plugin-string": "^1.2.1"
   },
